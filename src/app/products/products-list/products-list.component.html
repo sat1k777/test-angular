@@ -1,0 +1,22 @@
+<div class="products-list">
+  <div class="clr-row">
+    <app-product
+      class="clr-col-lg-4 clr-col-md-6 clr-col-12"
+      *ngFor="
+        let product of products | paginate: paginationConfig;
+        let i = index
+      "
+      [product]="product"
+      [id]="
+        paginationConfig.itemsPerPage * (paginationConfig.currentPage - 1) + i
+      "
+    ></app-product>
+  </div>
+</div>
+<div class="clr-row">
+  <div class="pagination">
+    <pagination-controls
+      (pageChange)="paginationConfig.currentPage = $event"
+    ></pagination-controls>
+  </div>
+</div>

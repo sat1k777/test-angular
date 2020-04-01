@@ -1,0 +1,33 @@
+<div class="card">
+  <div class="card-header">
+    {{ product.title }}
+  </div>
+  <div class="card-block">
+    <div class="card-media-block">
+      <img
+        [src]="product.image"
+        alt="{{ product.title }}"
+        class="card-media-image"
+      />
+      <div class="card-media-description">
+        <span class="card-media-title"> Category: {{ product.type }} </span>
+        <bar-rating
+          [(rate)]="product.rating"
+          [max]="5"
+          [readOnly]="true"
+        ></bar-rating>
+      </div>
+    </div>
+    <div class="card-text">
+      {{ product.description }}
+    </div>
+  </div>
+  <div class="card-footer">
+    <button type="button" class="btn btn-sm btn-link" (click)="onBuyNow()">
+      Buy Now
+    </button>
+    <button type="button" class="btn btn-sm btn-link" (click)="onAddToCart()">
+      Add to cart
+    </button>
+  </div>
+</div>

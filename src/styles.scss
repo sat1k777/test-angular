@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+
+// Rating starts theme
+@import '~ngx-bar-rating/themes/br-default-theme';
+
+body {
+  overflow: hidden;
+}
+
+// Pagination styles
+
+.pagination .ngx-pagination a,
+.ngx-pagination button {
+  color: #e9ecef;
+}
+
+.pagination .ngx-pagination a:hover,
+.ngx-pagination button:hover {
+  color: #29414e;
+}
+
+.pagination .ngx-pagination .disabled {
+  color: #8f9ba3;
+}

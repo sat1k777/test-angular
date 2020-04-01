@@ -1,12 +1,12 @@
 export default class Product {
   constructor(
-    private title: string,
-    private type: string,
-    private description: string,
-    private image: string,
-    private height: number,
-    private width: number,
-    private price: number,
-    private rating: number
+    public title: string,
+    public type: string,
+    public description: string,
+    public image: string,
+    public height: number,
+    public width: number,
+    public price: number,
+    public rating: number
   ) {}
 }
