@@ -12,7 +12,7 @@ export class ProductsListComponent implements OnInit {
   products: Product[] = [];
 
   paginationConfig = {
-    itemsPerPage: 6,
+    itemsPerPage: 9,
     currentPage: 1
   };
 

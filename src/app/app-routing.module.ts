@@ -6,6 +6,7 @@ import { ProductsListComponent } from './products/products-list/products-list.co
 import { ProductsResolverService } from './products/products-resolver.service';
 import { ProductViewComponent } from './products/product-view/product-view.component';
 import { CartComponent } from './cart/cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
         component: ProductViewComponent
       }
     ]
+  },
+  {
+    path: 'checkout/:id',
+    component: CheckoutComponent
   },
   {
     path: 'cart',

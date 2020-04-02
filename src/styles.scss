@@ -11,7 +11,8 @@ body {
 
 .pagination .ngx-pagination a,
 .ngx-pagination button {
-  color: #e9ecef;
+  // color: #e9ecef;
+  color: #29414e;
 }
 
 .pagination .ngx-pagination a:hover,
@@ -21,4 +22,20 @@ body {
 
 .pagination .ngx-pagination .disabled {
   color: #8f9ba3;
+}
+
+.rating {
+  display: flex;
+}
+
+.list-group-item .rating .br {
+  margin: 0 10px;
+}
+
+form.clr-form.credit-card-form
+  .clr-form-control
+  .clr-control-container
+  .clr-input-wrapper
+  input.clr-input {
+  width: 100%;
 }

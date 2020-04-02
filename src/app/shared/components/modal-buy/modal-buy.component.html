@@ -1,0 +1,295 @@
+<clr-wizard
+  #wizard
+  [(clrWizardOpen)]="isBuying"
+  (clrWizardOnCancel)="onClose()"
+  [clrWizardPreventNavigation]="loading"
+>
+  <clr-wizard-title>{{ title }}</clr-wizard-title>
+
+  <clr-wizard-button [type]="'cancel'">Cancel</clr-wizard-button>
+  <clr-wizard-button [type]="'previous'">Back</clr-wizard-button>
+  <clr-wizard-button [type]="'next'">Next</clr-wizard-button>
+  <clr-wizard-button [type]="'finish'">Finish</clr-wizard-button>
+
+  <clr-wizard-page>
+    <ng-template clrPageTitle>General Information</ng-template>
+
+    <div class="clr-row clr-justify-content-center">
+      <div
+        class="clr-col-md-12 clr-col-lg-12 clr-col-xl-6 clr-align-self-center"
+      >
+        <div class="card">
+          <div class="card-img">
+            <img [src]="product.image" />
+          </div>
+          <div class="card-block">
+            <h4 class="card-title">{{ product.title }}</h4>
+            <p class="card-text">
+              {{ product.description }}
+            </p>
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item">Type: {{ product.type }}</li>
+            <li class="list-group-item">
+              <div class="rating">
+                <span>Rating:</span>
+                <bar-rating
+                  [(rate)]="product.rating"
+                  [max]="5"
+                  [readOnly]="true"
+                ></bar-rating>
+              </div>
+            </li>
+            <li class="list-group-item">
+              Size: {{ product.width }} x {{ product.height }}
+            </li>
+            <li class="list-group-item">
+              Price: {{ product.price | currency: 'USD':'symbol' }}
+            </li>
+            <li class="list-group-item">
+              <form clrForm>
+                <clr-input-container class="clr-align-items-center">
+                  <label
+                    style="padding-left: 0; font-weight: 400;"
+                    for="amount"
+                    class="clr-col-12 clr-col-md-2"
+                    >Amount:
+                  </label>
+                  <input
+                    class="clr-col-12 clr-col-md-10"
+                    min="1"
+                    type="number"
+                    placeholder="Amount"
+                    clrInput
+                    (blur)="onBlur($event)"
+                    [(ngModel)]="amount"
+                    name="amount"
+                  />
+                  <clr-control-helper
+                    >Amount of items You are buying</clr-control-helper
+                  >
+                </clr-input-container>
+              </form>
+            </li>
+          </ul>
+          <div class="card-footer">
+            Total Price:
+            {{ product.price * amount | currency: 'USD':'symbol' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </clr-wizard-page>
+
+  <clr-wizard-page
+    [clrWizardPageNextDisabled]="!userDataForm.valid"
+    (clrWizardPageOnCommit)="onUserDataComplete()"
+  >
+    <ng-template clrPageTitle>Personal Information</ng-template>
+    <form clrForm [formGroup]="userDataForm">
+      <clr-input-container>
+        <label>Full Name</label>
+        <input clrInput type="text" formControlName="fullname" />
+        <clr-control-helper
+          >Please, enter your fullname correctly.</clr-control-helper
+        >
+        <clr-control-error
+          *ngIf="
+            userDataForm.get('fullname').touched &&
+            !userDataForm.get('fullname').valid
+          "
+          ><span *ngIf="userDataForm.get('fullname').errors['required']"
+            >Full name is required</span
+          ></clr-control-error
+        >
+      </clr-input-container>
+      <clr-input-container>
+        <label>Mail</label>
+        <input clrInput type="text" formControlName="email" />
+        <clr-control-helper
+          >We need your email to confirm order.</clr-control-helper
+        >
+        <clr-control-error
+          *ngIf="
+            userDataForm.get('email').touched &&
+            !userDataForm.get('email').valid
+          "
+          ><span *ngIf="userDataForm.get('email').errors['required']"
+            >Email name is required</span
+          ><span *ngIf="userDataForm.get('email').errors['email']"
+            >Email is not valid</span
+          >
+        </clr-control-error>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Address</label>
+        <input clrInput type="text" formControlName="address" />
+        <clr-control-helper
+          >Address is needed to send you an order</clr-control-helper
+        >
+        <clr-control-error
+          *ngIf="
+            userDataForm.get('address').touched &&
+            !userDataForm.get('address').valid
+          "
+          ><span *ngIf="userDataForm.get('address').errors['required']"
+            >Address is required</span
+          ></clr-control-error
+        >
+      </clr-input-container>
+      <clr-input-container>
+        <label>Zipcode</label>
+        <input clrInput type="text" formControlName="zipcode" />
+        <clr-control-helper
+          >Zipocde is required to send you order at right post
+          office</clr-control-helper
+        >
+        <clr-control-error
+          *ngIf="
+            userDataForm.get('zipcode').touched &&
+            !userDataForm.get('zipcode').valid
+          "
+          ><span *ngIf="userDataForm.get('zipcode').errors['required']"
+            >Zipcode is required</span
+          ></clr-control-error
+        >
+      </clr-input-container>
+    </form>
+  </clr-wizard-page>
+
+  <clr-wizard-page
+    [clrWizardPageNextDisabled]="!creditCardForm.valid"
+    (clrWizardPageOnCommit)="onCommit()"
+    clrWizardPagePreventDefault="true"
+  >
+    <ng-template clrPageTitle>Payment</ng-template>
+    <clr-alert
+      *ngIf="error && !loading"
+      [clrAlertType]="'alert-danger'"
+      [clrCloseButtonAriaLabel]="'Close alert'"
+    >
+      <div class="alert-item">
+        {{ error }}
+      </div>
+    </clr-alert>
+    <div *ngIf="loading">
+      <clr-spinner clrInline>
+        Processing...
+      </clr-spinner>
+      <span>
+        Processing...
+      </span>
+    </div>
+
+    <div *ngIf="!loading" class="content">
+      <form
+        class="credit-card-form"
+        clrForm
+        [formGroup]="creditCardForm"
+        clrLayout="vertical"
+      >
+        <div class="clr-row">
+          <div class="clr-col-6">
+            <clr-input-container>
+              <label for="credit-card-number" class="clr-col-12"
+                >Credit Card</label
+              >
+              <input
+                class="clr-col-12"
+                #ccNumber="ccNumber"
+                placeholder="XXXX-XXXX-XXXX-XXXX"
+                id="credit-card-number"
+                clrInput
+                formControlName="cardNumber"
+                ccNumber
+                type="tel"
+              />
+            </clr-input-container>
+          </div>
+          <div class="clr-col-3">
+            <clr-input-container>
+              <label for="credit-expiration-date">Expiration Date</label>
+              <input
+                id="credit-expiration-date"
+                clrInput
+                formControlName="expirationDate"
+                ccExp
+                type="tel"
+              />
+            </clr-input-container>
+          </div>
+          <div class="clr-col-3">
+            <clr-input-container>
+              <label for="credit-cvc">CVC</label>
+              <input
+                id="credit-cvc"
+                clrInput
+                formControlName="cvc"
+                ccCVC
+                type="tel"
+              />
+            </clr-input-container>
+          </div>
+        </div>
+      </form>
+
+      <div class="checkout-info">
+        <div class="clr-row">
+          <div class="clr-col-12 clr-col-lg-6">
+            <div class="card">
+              <div class="card-header">
+                Personal information
+              </div>
+              <div class="card-block">
+                <ul *ngIf="userData" class="list-group">
+                  <li class="list-group-item">
+                    Full Name: {{ userData.fullname }}
+                  </li>
+                  <li class="list-group-item">Email: {{ userData.email }}</li>
+                  <li class="list-group-item">
+                    Address: {{ userData.address }}
+                  </li>
+                  <li class="list-group-item">
+                    Zipcode: {{ userData.zipcode }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="clr-col-12 clr-col-lg-6">
+            <div class="card">
+              <div class="card-header">
+                Product information
+              </div>
+              <div class="card-block">
+                <ul *ngIf="product" class="list-group">
+                  <li class="list-group-item">Name: {{ product.title }}</li>
+                  <li class="list-group-item">Category: {{ product.type }}</li>
+                  <li class="list-group-item">
+                    Price: {{ product.price | currency: 'USD':'symbol' }}
+                  </li>
+                  <li class="list-group-item">Amount: {{ amount }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="clr-col-12">
+            <div class="alert alert-info">
+              <div class="alert-items">
+                <div class="alert-item static">
+                  <div class="alert-icon-wrapper">
+                    <clr-icon class="alert-icon" shape="info-circle"></clr-icon>
+                  </div>
+                  <h3 class="alert-text">
+                    Total Price:
+                    {{ product.price * amount | currency: 'USD':'symbol' }}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </clr-wizard-page>
+</clr-wizard>

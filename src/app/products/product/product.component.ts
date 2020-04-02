@@ -10,12 +10,21 @@ import Product from 'src/app/shared/models/products.model';
 export class ProductComponent implements OnInit {
   @Input() product: Product;
   @Input() id: number;
+  isBuying = false;
+  modalTitle = '';
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  onBuyNow() {}
+  onBuyNow() {
+    this.modalTitle = `Buying ${this.product.title}`;
+    this.isBuying = true;
+  }
 
   onAddToCart() {}
+
+  isClosed() {
+    this.isBuying = false;
+  }
 }

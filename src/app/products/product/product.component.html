@@ -1,4 +1,10 @@
-<div class="card">
+<app-modal-buy
+  [title]="modalTitle"
+  [product]="product"
+  [isBuying]="isBuying"
+  (isClosed)="isClosed()"
+></app-modal-buy>
+<div class="card clickable">
   <div class="card-header">
     {{ product.title }}
   </div>
