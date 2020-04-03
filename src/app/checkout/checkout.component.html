@@ -1,1 +1,71 @@
-<p>checkout works!</p>
+<div class="clr-row clr-justify-content-center">
+  <div class="clr-col-12 clr-col-md-7">
+    <div class="card">
+      <div class="card-header">
+        <div class="checkout-title" style="text-align: center;">
+          <clr-icon shape="check" size="72" class="is-success"></clr-icon>
+          <h1>Success!</h1>
+        </div>
+      </div>
+      <div class="card-block">
+        <div class="card-title">
+          Dear, <span class="p4">{{ order.userData.fullname }}</span>
+        </div>
+        <div class="cart-text">
+          Thank you for buying
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let item of order.items">
+              {{ item.amount }}x {{ item.product.title }} on total price
+              {{ item.product.price * item.amount | currency: 'USD':'symbol' }}
+            </li>
+          </ul>
+          <p>
+            We're going to send a checkout to your email:
+            <a href="mailto:{{ order.userData.email }}">{{
+              order.userData.email
+            }}</a>
+          </p>
+        </div>
+      </div>
+      <div class="card-block">
+        <div class="card-title">Checkout:</div>
+        <div class="card-text">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <span class="p4">Personal data:</span>
+              <br />
+              <span class="p6">Name: </span> {{ order.userData.fullname }}.
+              <br />
+              <span class="p6">Email:</span>
+              <a href="mailto:{{ order.userData.email }} "
+                >{{ order.userData.email }} </a
+              >.
+              <br />
+              <span class="p6">Phone Number: </span
+              >{{ order.userData.phoneNumber }}
+              <br />
+              <span class="p6">Address: </span> {{ order.userData.city }},
+              {{ order.userData.address }},
+              {{ order.userData.zipcode }}
+            </li>
+            <li class="list-group-item" *ngFor="let item of order.items">
+              <span class="p4"
+                >{{ order.items.length > 1 ? 'Items' : 'Item' }}:</span
+              >
+              {{ item.amount }}x {{ item.product.title }}
+            </li>
+            <li class="list-group-item">
+              <span class="p4">Total Price: </span>
+              {{ order.totalPrice | currency: 'USD':'symbol' }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-link" routerLink="/">
+          <clr-icon shape="arrow" dir="left"></clr-icon> Back to products
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

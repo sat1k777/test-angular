@@ -13,8 +13,8 @@ export class ProductsService {
     return this.products.slice();
   }
 
-  getProduct(id: number) {
-    return this.products[id];
+  getProduct(id: string) {
+    return this.products[+id];
   }
 
   setProducts(products: Product[]) {

@@ -1,10 +1,11 @@
 <app-modal-buy
   [title]="modalTitle"
   [product]="product"
+  [productId]="id"
   [isBuying]="isBuying"
   (isClosed)="isClosed()"
 ></app-modal-buy>
-<div class="card clickable">
+<div (click)="onView()" class="card clickable">
   <div class="card-header">
     {{ product.title }}
   </div>
@@ -29,11 +30,22 @@
     </div>
   </div>
   <div class="card-footer">
-    <button type="button" class="btn btn-sm btn-link" (click)="onBuyNow()">
+    <button
+      type="button"
+      class="btn btn-sm btn-link"
+      (click)="onBuyNow($event)"
+    >
       Buy Now
     </button>
-    <button type="button" class="btn btn-sm btn-link" (click)="onAddToCart()">
+    <button
+      type="button"
+      class="btn btn-sm btn-link"
+      (click)="onAddToCart($event)"
+    >
       Add to cart
+    </button>
+    <button type="button" class="btn btn-sm btn-link" (click)="onView()">
+      View
     </button>
   </div>
 </div>

@@ -1,22 +1,37 @@
-<div class="products-list">
-  <div class="clr-row">
-    <app-product
-      class="clr-col-lg-4 clr-col-md-6 clr-col-12"
-      *ngFor="
-        let product of products | paginate: paginationConfig;
-        let i = index
-      "
-      [product]="product"
-      [id]="
-        paginationConfig.itemsPerPage * (paginationConfig.currentPage - 1) + i
-      "
-    ></app-product>
+<div *ngIf="error" class="alert alert-app-level alert-danger" role="alert">
+  <div class="alert-items">
+    <div class="alert-item static">
+      <div class="alert-icon-wrapper">
+        <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+      </div>
+      <div class="alert-text">
+        {{ error.message }}
+      </div>
+    </div>
   </div>
 </div>
-<div class="clr-row">
-  <div class="pagination">
-    <pagination-controls
-      (pageChange)="paginationConfig.currentPage = $event"
-    ></pagination-controls>
+
+<div *ngIf="!error" class="content">
+  <div class="products-list">
+    <div class="clr-row">
+      <app-product
+        class="clr-col-lg-4 clr-col-md-6 clr-col-12"
+        *ngFor="
+          let product of products | paginate: paginationConfig;
+          let i = index
+        "
+        [product]="product"
+        [id]="
+          paginationConfig.itemsPerPage * (paginationConfig.currentPage - 1) + i
+        "
+      ></app-product>
+    </div>
+  </div>
+  <div class="clr-row">
+    <div class="pagination">
+      <pagination-controls
+        (pageChange)="paginationConfig.currentPage = $event"
+      ></pagination-controls>
+    </div>
   </div>
 </div>

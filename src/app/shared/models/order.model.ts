@@ -8,6 +8,8 @@ interface Item {
 interface User {
   fullname: string;
   email: string;
+  city: string;
+  phoneNumber: string;
   address: string;
   zipcode: string;
 }

@@ -24,6 +24,7 @@ export class ModalBuyComponent implements OnInit {
   @ViewChild('wizard') wizard: ClrWizard;
   @Input() title: string;
   @Input() product: Product;
+  @Input() productId: number;
   @Input() isBuying: boolean;
   @Output() isClosed = new EventEmitter<void>();
 
@@ -38,6 +39,8 @@ export class ModalBuyComponent implements OnInit {
   userData: {
     fullname: string;
     email: string;
+    phoneNumber: string;
+    city: string;
     address: string;
     zipcode: string;
   };
@@ -57,8 +60,19 @@ export class ModalBuyComponent implements OnInit {
     this.userDataForm = new FormGroup({
       fullname: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
+      phoneNumber: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern('^\\d+$')
+      ]),
+      city: new FormControl(null, Validators.required),
       address: new FormControl(null, Validators.required),
-      zipcode: new FormControl(null, Validators.required)
+      zipcode: new FormControl(null, [
+        Validators.required,
+        Validators.maxLength(6),
+        Validators.pattern('^\\d+$')
+      ])
     });
   }
 
@@ -84,22 +98,18 @@ export class ModalBuyComponent implements OnInit {
     this.isClosed.emit();
   }
 
-  onBlur(event: FocusEvent) {
-    const value = (event.target as HTMLInputElement).value;
-    if (value === '') {
-      this.amount = 1;
+  onAmountKeyPress(event: KeyboardEvent) {
+    if (event.key === '.' || event.key === '-' || event.key === ',') {
+      return false;
     }
   }
 
-  // onClick(event: string) {
-  //   switch (event) {
-  //     case 'emit': {
-  //       return this.onPaymentComplete();
-  //     }
-  //     default:
-  //       this.wizard.next();
-  //   }
-  // }
+  onBlur(event: FocusEvent) {
+    const value = (event.target as HTMLInputElement).value;
+    if (value === '' || value === '0') {
+      this.amount = 1;
+    }
+  }
 
   onUserDataComplete() {
     this.userData = this.userDataForm.value;

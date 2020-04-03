@@ -25,7 +25,8 @@ const routes: Routes = [
       },
       {
         path: ':id',
-        component: ProductViewComponent
+        component: ProductViewComponent,
+        resolve: [ProductsResolverService]
       }
     ]
   },

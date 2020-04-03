@@ -6,5 +6,5 @@ interface Item {
 }
 
 export default class Cart {
-  constructor(private items: Item[], private totalPrice: number) {}
+  constructor(public items: Item[], public totalPrice: number) {}
 }

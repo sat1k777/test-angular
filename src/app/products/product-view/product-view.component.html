@@ -1,1 +1,59 @@
-<p>product-view works!</p>
+<app-modal-buy
+  [title]="modalTitle"
+  [product]="product"
+  [productId]="id"
+  [isBuying]="isBuying"
+  (isClosed)="isClosed()"
+></app-modal-buy>
+<div class="clr-row clr-justify-content-center">
+  <div class="clr-col-12 clr-col-lg-5">
+    <div class="card">
+      <div class="card-img">
+        <img
+          style="max-height: 400px;"
+          [src]="product.image"
+          alt="{{ product.title }}"
+        />
+      </div>
+      <div class="card-header">
+        <h5>{{ product.title }}</h5>
+      </div>
+      <div class="card-block">
+        <p class="card-text">
+          {{ product.description }}
+        </p>
+        <ul class="list-group">
+          <li class="list-group-item">Category: {{ product.type }}</li>
+          <li class="list-group-item">
+            <div class="rating">
+              <span>Rating:</span>
+              <bar-rating
+                [(rate)]="product.rating"
+                [max]="5"
+                [readOnly]="true"
+              ></bar-rating>
+            </div>
+          </li>
+          <li class="list-group-item">
+            Size: {{ product.width }} x {{ product.height }}
+          </li>
+          <li class="list-group-item">
+            Price: {{ product.price | currency: 'USD':'symbol' }}
+          </li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <button
+          type="button"
+          class="btn btn-sm btn-link"
+          (click)="onToProducts()"
+        >
+          <clr-icon shape="arrow" dir="left"></clr-icon> To Products
+        </button>
+        <button type="button" class="btn btn-sm btn-link" (click)="onBuyNow()">
+          Buy Now
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
