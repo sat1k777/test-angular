@@ -78,6 +78,7 @@ export class ModalBuyComponent implements OnInit {
   }
 
   async onCommit() {
+    this.creditCardFormIsValid = false;
     this.loading = true;
     const order: Order = {
       totalPrice: this.product.price * this.amount,
