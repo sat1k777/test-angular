@@ -21,6 +21,9 @@ import { CartComponent } from './cart/cart.component';
 import { ProductsListComponent } from './products/products-list/products-list.component';
 import { ModalBuyComponent } from './shared/components/modal-buy/modal-buy.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { ModalGeneralInfoComponent } from './shared/components/modal-general-info/modal-general-info.component';
+import { ModalPersonalInformationComponent } from './shared/components/modal-personal-information/modal-personal-information.component';
+import { ModalCreditcardInfoComponent } from './shared/components/modal-creditcard-info/modal-creditcard-info.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { CheckoutComponent } from './checkout/checkout.component';
     CartComponent,
     ProductsListComponent,
     ModalBuyComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    ModalGeneralInfoComponent,
+    ModalPersonalInformationComponent,
+    ModalCreditcardInfoComponent
   ],
   imports: [
     BrowserModule,

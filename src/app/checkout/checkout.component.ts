@@ -22,7 +22,6 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     this.orderId = this.route.snapshot.params['id'];
     this.order = this.orderService.getOrder(this.orderId);
-    console.log(this.order);
     if (!this.order) {
       this.router.navigate(['/']);
     }

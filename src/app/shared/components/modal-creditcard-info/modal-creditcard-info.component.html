@@ -1,0 +1,132 @@
+<clr-alert
+  *ngIf="error"
+  [clrAlertType]="'alert-danger'"
+  [clrCloseButtonAriaLabel]="'Close alert'"
+>
+  <div class="alert-item">
+    {{ error }}
+  </div>
+</clr-alert>
+
+<div class="content">
+  <div class="alert alert-info" role="alert">
+    <div class="alert-items">
+      <div class="alert-item static">
+        <div class="alert-icon-wrapper">
+          <clr-icon class="alert-icon" shape="info-circle"></clr-icon>
+        </div>
+        <span class="alert-text">
+          Please, provide your credit card information .
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-warning" role="alert">
+    <div class="alert-items">
+      <div class="alert-item static">
+        <div class="alert-icon-wrapper">
+          <clr-icon class="alert-icon" shape="exclamation-triangle"></clr-icon>
+        </div>
+        <span class="alert-text">
+          Note: We do not store or use your personal information
+        </span>
+      </div>
+    </div>
+  </div>
+  <form
+    class="credit-card-form"
+    clrForm
+    [formGroup]="creditCardForm"
+    clrLayout="vertical"
+  >
+    <div class="clr-row">
+      <div class="clr-col-6">
+        <clr-input-container>
+          <label for="credit-card-number" class="clr-col-12">Credit Card</label>
+          <input
+            class="clr-col-12"
+            #ccNumber="ccNumber"
+            placeholder="XXXX-XXXX-XXXX-XXXX"
+            id="credit-card-number"
+            clrInput
+            formControlName="cardNumber"
+            ccNumber
+            type="tel"
+          />
+        </clr-input-container>
+      </div>
+      <div class="clr-col-3">
+        <clr-input-container>
+          <label for="credit-expiration-date">Expiration Date</label>
+          <input
+            id="credit-expiration-date"
+            clrInput
+            formControlName="expirationDate"
+            ccExp
+            type="tel"
+          />
+        </clr-input-container>
+      </div>
+      <div class="clr-col-3">
+        <clr-input-container>
+          <label for="credit-cvc">CVC</label>
+          <input
+            id="credit-cvc"
+            clrInput
+            formControlName="cvc"
+            ccCVC
+            type="tel"
+          />
+        </clr-input-container>
+      </div>
+    </div>
+  </form>
+
+  <div class="checkout-info">
+    <div class="clr-row">
+      <div class="clr-col-12 clr-col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            Personal information
+          </div>
+          <div class="card-block">
+            <ul *ngIf="userData" class="list-group">
+              <li class="list-group-item">
+                Full Name: {{ userData.fullname }}
+              </li>
+              <li class="list-group-item">Email: {{ userData.email }}</li>
+              <li class="list-group-item">Phone: {{ userData.phoneNumber }}</li>
+              <li class="list-group-item">
+                Address: {{ userData.city }} {{ userData.address }}
+              </li>
+              <li class="list-group-item">Zipcode: {{ userData.zipcode }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="clr-col-12 clr-col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            Transaction information
+          </div>
+          <div class="card-block">
+            <ul *ngIf="product" class="list-group">
+              <li class="list-group-item">Name: {{ product.title }}</li>
+              <li class="list-group-item">Category: {{ product.type }}</li>
+              <li class="list-group-item">
+                Price: {{ product.price | currency: 'USD':'symbol' }}
+              </li>
+              <li class="list-group-item">Amount: {{ amount }}</li>
+            </ul>
+          </div>
+          <div class="card-footer">
+            <h4>
+              Total Price:
+              {{ product.price * amount | currency: 'USD':'symbol' }}
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

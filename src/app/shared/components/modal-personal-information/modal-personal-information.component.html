@@ -1,0 +1,138 @@
+<div class="alert alert-info" role="alert">
+  <div class="alert-items">
+    <div class="alert-item static">
+      <div class="alert-icon-wrapper">
+        <clr-icon class="alert-icon" shape="info-circle"></clr-icon>
+      </div>
+      <span class="alert-text">
+        Please, provide your personal information correctly.
+      </span>
+    </div>
+  </div>
+</div>
+<div class="alert alert-warning" role="alert">
+  <div class="alert-items">
+    <div class="alert-item static">
+      <div class="alert-icon-wrapper">
+        <clr-icon class="alert-icon" shape="exclamation-triangle"></clr-icon>
+      </div>
+      <span class="alert-text">
+        Note: We do not store or use your personal information
+      </span>
+    </div>
+  </div>
+</div>
+<form clrForm [formGroup]="userDataForm">
+  <clr-input-container>
+    <label>Full Name</label>
+    <input clrInput type="text" formControlName="fullname" />
+    <clr-control-helper
+      >Please, enter your fullname correctly.</clr-control-helper
+    >
+    <clr-control-error
+      *ngIf="
+        userDataForm.get('fullname').touched &&
+        !userDataForm.get('fullname').valid
+      "
+      ><span *ngIf="userDataForm.get('fullname').errors['required']"
+        >Full name is required</span
+      ></clr-control-error
+    >
+  </clr-input-container>
+  <clr-input-container>
+    <label>Mail</label>
+    <input clrInput type="text" formControlName="email" />
+    <clr-control-helper
+      >We need your email to confirm order.</clr-control-helper
+    >
+    <clr-control-error
+      *ngIf="
+        userDataForm.get('email').touched && !userDataForm.get('email').valid
+      "
+      ><span *ngIf="userDataForm.get('email').errors['required']"
+        >Email name is required</span
+      ><span *ngIf="userDataForm.get('email').errors['email']"
+        >Email is not valid</span
+      >
+    </clr-control-error>
+  </clr-input-container>
+  <clr-input-container>
+    <label>Phone Number</label>
+    <input clrInput type="text" formControlName="phoneNumber" />
+    <clr-control-helper
+      >We need your phone number, to contact you on an
+      order.</clr-control-helper
+    >
+    <clr-control-error
+      *ngIf="
+        userDataForm.get('phoneNumber').touched &&
+        !userDataForm.get('phoneNumber').valid
+      "
+      ><span *ngIf="userDataForm.get('phoneNumber').errors['required']">
+        Phone Number is required
+      </span>
+      <span *ngIf="userDataForm.get('phoneNumber').errors['pattern']">
+        Invalid phone number
+      </span>
+      <span
+        *ngIf="
+          userDataForm.get('phoneNumber').errors['maxlength'] ||
+          userDataForm.get('phoneNumber').errors['minlength']
+        "
+      >
+        Phone number should be 10 symbols long
+      </span>
+    </clr-control-error>
+  </clr-input-container>
+  <clr-input-container>
+    <label>City</label>
+    <input clrInput type="text" formControlName="city" />
+    <clr-control-helper>City is needed to send you an order</clr-control-helper>
+    <clr-control-error
+      *ngIf="
+        userDataForm.get('city').touched && !userDataForm.get('city').valid
+      "
+      ><span *ngIf="userDataForm.get('city').errors['required']"
+        >City is required</span
+      ></clr-control-error
+    >
+  </clr-input-container>
+  <clr-input-container>
+    <label>Address</label>
+    <input clrInput type="text" formControlName="address" />
+    <clr-control-helper
+      >Address is needed to send you an order</clr-control-helper
+    >
+    <clr-control-error
+      *ngIf="
+        userDataForm.get('address').touched &&
+        !userDataForm.get('address').valid
+      "
+      ><span *ngIf="userDataForm.get('address').errors['required']"
+        >Address is required</span
+      ></clr-control-error
+    >
+  </clr-input-container>
+  <clr-input-container>
+    <label>Zipcode</label>
+    <input clrInput type="text" formControlName="zipcode" />
+    <clr-control-helper
+      >Zipocde is required to send you order at right post
+      office</clr-control-helper
+    >
+    <clr-control-error
+      *ngIf="
+        userDataForm.get('zipcode').touched &&
+        !userDataForm.get('zipcode').valid
+      "
+      ><span *ngIf="userDataForm.get('zipcode').errors['required']"
+        >Zipcode is required</span
+      ><span *ngIf="userDataForm.get('zipcode').errors['maxlength']"
+        >Zipcode is usually 6 symbols or less</span
+      >
+      <span *ngIf="userDataForm.get('zipcode').errors['pattern']"
+        >Zipcode accepts only numbers</span
+      >
+    </clr-control-error>
+  </clr-input-container>
+</form>

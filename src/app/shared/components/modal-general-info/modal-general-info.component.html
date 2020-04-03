@@ -1,0 +1,69 @@
+<div class="clr-row clr-justify-content-center">
+  <div class="clr-col-md-12 clr-col-lg-12 clr-col-xl-6 clr-align-self-center">
+    <div class="card">
+      <div class="card-img">
+        <img
+          [src]="product.image"
+          alt="{{ product.title }}"
+          style="max-height: 145px;"
+        />
+      </div>
+      <div class="card-block">
+        <h4 class="card-title">{{ product.title }}</h4>
+        <p class="card-text">
+          {{ product.description }}
+        </p>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">Type: {{ product.type }}</li>
+        <li class="list-group-item">
+          <div class="rating">
+            <span>Rating:</span>
+            <bar-rating
+              [(rate)]="product.rating"
+              [max]="5"
+              [readOnly]="true"
+            ></bar-rating>
+          </div>
+        </li>
+        <li class="list-group-item">
+          Size: {{ product.width }} x {{ product.height }}
+        </li>
+        <li class="list-group-item">
+          Price: {{ product.price | currency: 'USD':'symbol' }}
+        </li>
+        <li class="list-group-item">
+          <form clrForm>
+            <clr-input-container class="clr-align-items-center">
+              <label
+                style="padding-left: 0; font-weight: 400;"
+                for="amount"
+                class="clr-col-12 clr-col-md-2"
+                >Amount:
+              </label>
+              <input
+                class="clr-col-12 clr-col-md-10"
+                min="1"
+                type="number"
+                placeholder="Amount"
+                clrInput
+                (blur)="onBlur($event)"
+                (keypress)="onAmountKeyPress($event)"
+                [(ngModel)]="amount"
+                (ngModelChange)="onAmountChanged($event)"
+                name="amount"
+              />
+              <clr-control-helper
+                >Amount of items You are buying</clr-control-helper
+              >
+            </clr-input-container>
+          </form>
+        </li>
+      </ul>
+      <div class="card-footer">
+        Total Price:
+        {{ product.price * amount | currency: 'USD':'symbol' }}
+      </div>
+    </div>
+  </div>
+</div>
